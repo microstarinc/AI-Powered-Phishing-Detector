@@ -1,73 +1,80 @@
-# Kavach Hackathon 2023
-This project is our submission for Kavach Hackathon 2023 on ***Phishing Detection Solution***, problem statement ID (KVH-004).<br />
-<img src="https://github.com/shshwtsrkr/Phishing-attack-detection/blob/master/images/kavach-logo.png"  width="400" height="250" style="float: right;">
+# AI-Powered Phishing Detector
 
-## Problem Statement 
-Design and develop a technological solution for AI-enabled Phishing Links Detection and Alert System. The solution should be able to identify the source of phishing attacks in web pages, email apps, social media, instant messenger apps, text messages etc. The solution may be in the form of a desktop/mobile application or a web browser plugin.
+This project implements an **AI-powered phishing link detection system** designed to identify and alert users about phishing attacks. The system leverages machine learning models to automatically detect phishing links in web pages, email apps, social media, and other platforms.
 
-# Phishing attack detection
-## Why are phishing links dangerous ?
+## Phishing Attack Detection
 
-In today's day and age, data is the new oil. It is clear that the importance of information, and more specifically user information is of paramount significance. Personal data is any information that relates to us, our identity as an individual. It includes everything and anything that can be used to identify us directly or indirectly such as our name, address, date of birth, Aadhar number, PAN Card number, email address, phone number, financial information, health information, and more. With increasing attacks and breaches on organizations and users, the end user's data and information is at risk.
+### Why are phishing links dangerous?
 
-Phishing is one of the most common types of cyberattacks that take place every year. Here are some statistics to understand the gravity of the situation :- <br />
+Phishing attacks are one of the most prevalent forms of cyber threats today. Phishing is responsible for a significant portion of data breaches. Here are some alarming statistics:
+
 - Phishing attacks are responsible for **90% of data breaches**.
-- The global average cost of a data breach caused by a phishing attack is $3.86 million. 
-- In 2020, there was a **22% increase** in the number of phishing attacks compared to the previous year.
-- One in every 99 emails is a phishing attack. 
+- The global average cost of a data breach caused by phishing is $3.86 million.
+- In 2020, phishing attacks saw a **22% increase** compared to the previous year.
+- One in every 99 emails is a phishing attempt.
 - **Phishing emails** account for 80% of all reported security incidents.
-- **94% of malware** is delivered **via email**.
+- **94% of malware** is delivered via phishing emails.
 
-Therefore, a solution to detect such link phishing links for the user beforehand is much needed.
+Given these risks, an effective solution to detect phishing links before they can cause harm is essential.
 
-## Our Approach
-Since, the increase in phishing attacks are increasing day-by-day manual identification and alerting of phishing links is not feasible.
-Therefore, we employ machine learning techniques to automate this process. 
+## Solution Approach
 
-### 1. Training the model
-![Model Architecture](images/mode-arch.png)
-For training our model, we use the [Malicious URLs dataset](https://www.kaggle.com/eswarchandt/phishing-website-detector)
-- **<ins>Loading the data</ins>** - To work with the data.
-- **<ins>Familiarizing with data & EDA (Exploratory Data Analysis)</ins>** - We perform EDA to understand the underlying the structure of data.
-- **<ins>Visualizing the data</ins>** - We perform certain data visualization techniques to visualize the data to realize the important correlations between different features.
-- **<ins>Building and training the model</ins>** - We trained the following models :
-    - Logistic Regression
-    - K-Nearest Neighbors
-    - Support Vector Clasifier
-    - Naive Bayes
-    - Decision Tree
-    - Random Forest
-    - **Gradient Boosting**
-    - Catboost
-    - Multilayer Perceptrons<br /><br />
-   Based on the latency of the model response as well as accuracy Gradient Boosting demonstrated to strike the best balance. Thus, being the model of our choice.
+To combat the growing threat of phishing, we have developed a system that uses machine learning to automatically detect phishing links in real-time. The solution can be easily integrated into browsers as an extension.
 
-### 2. Building the extension
-- Creating manifest.json with configurations on when it will activate and what resources it will be able to access from our access folder.
-- background.js is responsible for fetching the URLs and ensuring that the extension works as intended.
-- The contentScript.js file manipulates the DOM of the site in question to seamlessly integrate itself onto it.
-- The popup HTML, JavaScript and CSS are responsible for the user interface of the extension.
+### 1. Training the Model
 
-### 3. Integrating the model with the extension
-- The model is saved as a pickle.
-- This pickle is served in Flask as a micro backend framework.
-- The flask server then exposes the model so that it can be fed with input, while also enabling us to provide the predicted output into our extension.
+We used the [Malicious URLs dataset](https://www.kaggle.com/eswarchandt/phishing-website-detector) to train the model. The following steps were followed during the process:
+
+- **Loading the data** – We imported the dataset to work with it.
+- **Exploratory Data Analysis (EDA)** – We performed data analysis to understand the data structure and identify important patterns.
+- **Data visualization** – Visualization techniques were employed to understand correlations between features.
+- **Model Training** – Several models were trained, including:
+  - Logistic Regression
+  - K-Nearest Neighbors
+  - Support Vector Classifier
+  - Naive Bayes
+  - Decision Tree
+  - Random Forest
+  - **Gradient Boosting**
+  - Catboost
+  - Multilayer Perceptrons
+
+After evaluating the latency and accuracy of these models, **Gradient Boosting** demonstrated the best balance between speed and accuracy, making it the model of choice.
+
+### 2. Building the Extension
+
+The extension integrates the model into a browser-friendly format. Key steps include:
+
+- **Manifest Configuration** – Configurations were set up for the extension’s activation and permissions.
+- **background.js** – This file handles the URL fetching and ensures the extension operates as expected.
+- **contentScript.js** – This script manipulates the DOM of websites to integrate the extension seamlessly.
+- **Popup Interface** – HTML, JavaScript, and CSS files manage the user interface of the extension.
+
+### 3. Integrating the Model with the Extension
+
+- The trained model is saved as a pickle file.
+- The pickle file is served using Flask, which acts as a lightweight backend server.
+- The Flask server exposes the model for input, allowing predictions to be fed directly into the extension for real-time analysis.
 
 ## Usage
-- The CRX file is available [here](https://github.com/shshwtsrkr/Phishing-attack-detection/raw/master/extension/PhisShield-extension.crx). You may choose to download the file and place it in an appropriate folder to run the extension. Some links to navigate through the extension are :-
-    - [How to Manually Install A Chrome Extension In Two Steps](https://www.thesslstore.com/blog/install-a-chrome-extension/)
-    - [Load CRX files in browser](https://stackoverflow.com/questions/9931906/crx-file-install-in-chrome)
-    - [Alternative Methods for Installing Browser Add-ons](https://docs.oracle.com/en/applications/enterprise-performance-management/smart-view/21.200/icgsv/browser_add_on_alternative_install.html)
-- Using the repository
-    - Clone the repository using the command - `git clone https://github.com/shshwtsrkr/Phishing-attack-detection.git`
-    - Goto Extensions and enable Developer mode in your browser.
-    - Click on **load unpacked** and then open the cloned repository.
 
-## Contributors (PhishShield)
+To use the phishing detection extension, follow these steps:
 
-1. [Saumit Dinesan](https://github.com/justsaumit)
-2. [Shashwat Sarkar](https://github.com/shshwtsrkr)
-3. [Arnab Kumar Roy](https://github.com/ArnabKumarRoy02)
-4. [Mayank Kumar Jha](https://github.com/mayankxjha)
-5. [Pinjana Biswas](https://github.com/Pinjana)
-6. [Phirat Passi](https://github.com/Phirat-Passi)
+1. **Download the Extension**:
+   - The CRX file is available [here](https://github.com/microstarinc/AI-Powered-Phishing-Detector/raw/master/extension/PhisShield-extension.crx).
+
+2. **Install the Extension**:
+   - Follow the instructions for installing CRX files on your browser:
+     - [How to Manually Install A Chrome Extension](https://www.thesslstore.com/blog/install-a-chrome-extension/)
+     - [Load CRX files in browser](https://stackoverflow.com/questions/9931906/crx-file-install-in-chrome)
+     - [Alternative Methods for Installing Browser Add-ons](https://docs.oracle.com/en/applications/enterprise-performance-management/smart-view/21.200/icgsv/browser_add_on_alternative_install.html)
+
+3. **Clone the Repository**:
+   - Clone the repository using the following command:
+     ```
+     git clone https://github.com/microstarinc/AI-Powered-Phishing-Detector.git
+     ```
+
+4. **Enable Developer Mode**:
+   - Go to **Extensions** in your browser and enable **Developer mode**.
+   - Click on **Load unpacked** and select the cloned repository to load the extension.
